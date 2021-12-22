@@ -37,6 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework',
+    'drf_yasg',
+    'accounts',
+    'administrator',
+    'core',
+    'component',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +76,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'hadoti_backend.wsgi.application'
 
+# Rest_Framework
+
+REST_FRAMEWORK = {
+    # "PAGE_SIZE": 10,
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.TokenAuthentication",
+    ),
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'rest_framework.permissions.IsAuthenticated', )
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
