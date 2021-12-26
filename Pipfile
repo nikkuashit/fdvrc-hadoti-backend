@@ -9,6 +9,8 @@ djangorestframework = "*"
 markdown = "*"
 django-filter = "*"
 drf-yasg = "*"
+pillow = "*"
+python-slugify = "*"
 
 [dev-packages]
 
