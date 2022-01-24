@@ -1,7 +1,8 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import (Menu, CorePage, Section)
-
+from django.core import serializers as serial
+import json
 # Menu serializer
 
 # CorePage  serializer
@@ -45,11 +46,17 @@ class CorePageCreateSerializer(serializers.ModelSerializer):
 
 
 class MenuReadOnlySerializer(serializers.ModelSerializer):
-    menu = CorePageReadOnlySerializer(many=True, read_only=True)
+    page = serializers.SerializerMethodField("get_core_page")
 
     class Meta:
         model = Menu
-        fields = ('slug', 'title', 'link', 'menu')
+        fields = ('slug', 'title', 'link', 'menu', 'page')
+
+    def get_core_page(self, obj):
+        core_page = CorePage.objects.filter(menu_id=obj.id)
+        data = json.loads(serial.serialize('json', core_page, fields=(
+            'slug', 'title', 'sub_title', 'content',)))
+        return data
 
 
 class MenuCreateSerializer(serializers.ModelSerializer):
