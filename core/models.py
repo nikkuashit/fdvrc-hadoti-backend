@@ -1,8 +1,13 @@
 from django.db import models
 import uuid
+from django.db.models.base import Model
 from slugify import slugify
 
 # Create your models here.
+
+
+class ComponentType(models.Model):
+    component_name = models.CharField(max_length=255, unique=True)
 
 
 class Menu(models.Model):
@@ -21,9 +26,9 @@ class Menu(models.Model):
 
 class CorePage(models.Model):
     slug = models.SlugField(unique=True)
-    menu_id = models.ForeignKey(
+    menu_id = models.OneToOneField(
         Menu, on_delete=models.CASCADE, related_name='menu')
-    title = models.CharField(max_length=255, blank=True)
+    title = models.CharField(max_length=255, unique=True)
     sub_title = models.CharField(max_length=255, blank=True)
     content = models.TextField(blank=True)
 
@@ -37,3 +42,11 @@ class CorePage(models.Model):
 
     class Meta:
         verbose_name_plural = "Core Page"
+
+
+class Section(models.Model):
+    position = models.IntegerField()
+    component_type = models.ForeignKey(
+        ComponentType, to_field="component_name", on_delete=models.CASCADE, related_name='component_type')
+    core_page = models.ForeignKey(
+        CorePage, to_field="title", on_delete=models.CASCADE, related_name='core_page')
