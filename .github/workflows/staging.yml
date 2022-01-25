@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: 📂 Sync files
-        uses: Ashitrai/FTP-Deploy-Action@4.2.0
+        uses: SamKirkland/FTP-Deploy-Action@4.2.0
         with:
           server: ftp.hadoti.curiositydesk.com
           username: ${{ secrets.ftp_username }}
