@@ -4,7 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
+django = "==3.2.11"
+djangorestframework = "*"
+markdown = "*"
+django-filter = "*"
+drf-yasg = "*"
+pillow = "*"
+python-slugify = "*"
 
 [dev-packages]
 

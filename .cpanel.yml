@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/rmoktvux3m8e/public_html/hadoti.curiositydesk.com/hadotifcp_backed/
+    - /bin/cp -R * $DEPLOYPATH
