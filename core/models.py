@@ -26,7 +26,7 @@ class Menu(models.Model):
 
 class CorePage(models.Model):
     slug = models.SlugField(unique=True)
-    menu_id = models.OneToOneField(
+    menu_id = models.ForeignKey(
         Menu, on_delete=models.CASCADE, related_name='menu')
     title = models.CharField(max_length=255, unique=True)
     sub_title = models.CharField(max_length=255, blank=True)
