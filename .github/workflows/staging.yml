@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - main
+      - staging
 name: 🚀 Deploy website on push
 jobs:
   web-deploy:
@@ -12,9 +12,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: 📂 Sync files
-        uses: Ashitrai/FTP-Deploy-Action@4.2.0
+        uses: SamKirkland/FTP-Deploy-Action@4.2.0
         with:
-          server: ftp.hadoti.curiositydesk.com
+          server: ftp.curiositydesk.com
           username: ${{ secrets.ftp_username }}
           password: ${{ secrets.ftp_password }}
-          server-dir: /public_html/hadoti.curiositydesk.com/hadotifcp_backed/
+          server-dir: /public_html/hadotifpc.in/hadotifcp_backed/
