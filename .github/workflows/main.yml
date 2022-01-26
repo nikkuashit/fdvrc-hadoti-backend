@@ -15,6 +15,6 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@4.2.0
         with:
           server: ftp.curiositydesk.com
-          username: ${{ secrets.ftp_username }}
-          password: ${{ secrets.ftp_password }}
+          username: ${{ secrets.ftp_prod_username }}
+          password: ${{ secrets.ftp_prod_password }}
           server-dir: /public_html/hadoti.curiositydesk.com/hadotifcp_backed/
