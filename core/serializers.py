@@ -1,8 +1,28 @@
+# from hadoti_backend.component.serializers import KnowAboutUsReadOnlySerializer, MediaFileReadOnlySerializer, ProductReadOnlySerializer
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import (Menu, CorePage, Section)
 from django.core import serializers as serial
 import json
+
+from component.serializers import (
+    CardMenuReadOnlySerializer,
+    CardMenuCreateSerializer,
+    ProductReadOnlySerializer,
+    ProductCreateSerializer,
+    KnowAboutUsReadOnlySerializer,
+    KnowAboutUsCreateSerializer,
+    LatestNewsReadOnlySerializer,
+    LatestNewsCreateSerializer,
+    FAQReadOnlySerializer,
+    FAQCreateSerializer,
+    GlanceReadOnlySerializer,
+    GlancereateSerializer,
+    AnnouncementReadOnlySerializer,
+    AnnouncementCreateSerializer,
+    MediaFileReadOnlySerializer,
+    MediaFileCreateSerializer,
+)
 # Menu serializer
 
 # CorePage  serializer

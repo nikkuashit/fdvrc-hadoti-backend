@@ -14,6 +14,8 @@ from django.contrib.auth.models import User
 from .models import (Menu, CorePage)
 from .serializers import (
     MenuReadOnlySerializer, MenuCreateSerializer, CorePageReadOnlySerializer, CorePageCreateSerializer)
+from django_filters.rest_framework import DjangoFilterBackend
+
 
 # Company Profile View
 
@@ -22,6 +24,9 @@ class MenuView(viewsets.ReadOnlyModelViewSet):
     permission_classes = []
     queryset = Menu.objects.all()
     # lookup_field = 'slug'
+    filter_backends = (DjangoFilterBackend,)
+    filter_fields = ('on_footer',)
+
     serializer_class = MenuReadOnlySerializer
     serializer_action_classes = {
         'create': MenuCreateSerializer,

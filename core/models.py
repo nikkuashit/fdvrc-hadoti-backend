@@ -14,6 +14,7 @@ class Menu(models.Model):
     slug = models.SlugField(unique=True)
     title = models.CharField(max_length=255)
     link = models.URLField(blank=True)
+    on_footer = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         id = uuid.uuid4()
