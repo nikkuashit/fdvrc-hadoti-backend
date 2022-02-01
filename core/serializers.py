@@ -32,7 +32,7 @@ class SectionReadOnlySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Section
-        fields = ('position', 'component_type', 'core_page')
+        fields = ('position', 'component_type', 'core_page', 'id')
 
 
 class SectionCreateSerializer(serializers.ModelSerializer):
@@ -52,7 +52,7 @@ class CorePageReadOnlySerializer(serializers.ModelSerializer):
     class Meta:
         model = CorePage
         fields = ('slug', 'menu_id', 'title',
-                  'sub_title', 'content', 'core_page')
+                  'sub_title', 'content', 'core_page', 'id')
 
 
 class CorePageCreateSerializer(serializers.ModelSerializer):
