@@ -1,4 +1,5 @@
 from abc import abstractclassmethod
+from lib2to3.pytree import Base
 from django.db import models
 from django.db.models.expressions import Value
 
@@ -19,6 +20,20 @@ class BaseComponentModel(models.Model):
 
     class Meta:
         abstract = True
+
+
+class ComponentData(BaseComponentModel):
+
+    section_id = models.ForeignKey(
+        Section, on_delete=models.CASCADE,  related_name='component_data')
+    is_active = models.BooleanField(default=True)
+    value = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = "Component Data"
 
 
 class CardMenu(BaseComponentModel):

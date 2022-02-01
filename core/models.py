@@ -9,6 +9,9 @@ from slugify import slugify
 class ComponentType(models.Model):
     component_name = models.CharField(max_length=255, unique=True)
 
+    def __str__(self):
+        return self.component_name
+
 
 class Menu(models.Model):
     slug = models.SlugField(unique=True)
@@ -51,3 +54,6 @@ class Section(models.Model):
         ComponentType, to_field="component_name", on_delete=models.CASCADE, related_name='component_type')
     core_page = models.ForeignKey(
         CorePage, to_field="title", on_delete=models.CASCADE, related_name='core_page')
+
+    def __str__(self):
+        return (self.core_page.title)

@@ -11,9 +11,9 @@ from django.http import JsonResponse
 from django.core import serializers
 from rest_framework import status
 from django.contrib.auth.models import User
-from .models import (Menu, CorePage)
+from .models import (Menu, CorePage, Section)
 from .serializers import (
-    MenuReadOnlySerializer, MenuCreateSerializer, CorePageReadOnlySerializer, CorePageCreateSerializer)
+    MenuReadOnlySerializer, MenuCreateSerializer, CorePageReadOnlySerializer, CorePageCreateSerializer, SectionReadOnlySerializer, SectionCreateSerializer)
 from django_filters.rest_framework import DjangoFilterBackend
 
 
@@ -74,8 +74,6 @@ class CorePageView(viewsets.ReadOnlyModelViewSet):
         fields = '__all__'
 
 
-# Social Admin View
-
 class CorePagedminView(viewsets.ModelViewSet):
     queryset = CorePage.objects.all()
     # lookup_field = 'slug'
@@ -88,4 +86,38 @@ class CorePagedminView(viewsets.ModelViewSet):
 
     class Meta:
         model = CorePage
+        fields = '__all__'
+
+
+# Section page
+
+
+class SectionView(viewsets.ReadOnlyModelViewSet):
+    permission_classes = []
+    queryset = Section.objects.all()
+    # lookup_field = 'slug'
+    serializer_class = SectionReadOnlySerializer
+    serializer_action_classes = {
+        'create': SectionCreateSerializer,
+        'list': SectionReadOnlySerializer,
+        'retrieve': SectionCreateSerializer
+    }
+
+    class Meta:
+        model = Section
+        fields = '__all__'
+
+
+class SectionAdminView(viewsets.ModelViewSet):
+    queryset = Section.objects.all()
+    # lookup_field = 'slug'
+    serializer_class = SectionReadOnlySerializer
+    serializer_action_classes = {
+        'create': SectionCreateSerializer,
+        'list': SectionReadOnlySerializer,
+        'retrieve': SectionCreateSerializer
+    }
+
+    class Meta:
+        model = Section
         fields = '__all__'

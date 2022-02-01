@@ -22,6 +22,7 @@ from component.serializers import (
     AnnouncementCreateSerializer,
     MediaFileReadOnlySerializer,
     MediaFileCreateSerializer,
+    ComponentDataReadOnlySerializer
 )
 # Menu serializer
 
@@ -29,10 +30,12 @@ from component.serializers import (
 
 
 class SectionReadOnlySerializer(serializers.ModelSerializer):
+    component_data = ComponentDataReadOnlySerializer(many=True, read_only=True)
 
     class Meta:
         model = Section
-        fields = ('position', 'component_type', 'core_page', 'id')
+        fields = ('position', 'component_type',
+                  'core_page', 'id', 'component_data')
 
 
 class SectionCreateSerializer(serializers.ModelSerializer):

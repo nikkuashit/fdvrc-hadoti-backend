@@ -7,12 +7,31 @@ from .models import (CardMenu,
                      FAQ,
                      Glance,
                      Announcement,
-                     MediaFile,)
+                     MediaFile, ComponentData)
 from django.core import serializers as serial
 import json
+# ComponentData
 
+
+class ComponentDataReadOnlySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ComponentData
+        fields = '__all__'
+
+
+class ComponentDataCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ComponentData
+
+    def create(self, validated_data):
+        component_data = ComponentData(**validated_data)
+        component_data.save()
+        return component_data
 
 # CardMenu
+
+
 class CardMenuReadOnlySerializer(serializers.ModelSerializer):
 
     class Meta:
