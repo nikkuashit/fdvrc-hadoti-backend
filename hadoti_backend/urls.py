@@ -43,4 +43,4 @@ urlpatterns = [
     path('admin/', include('administrator.urls')),
     path('core/', include('core.urls')),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT, show_indexes=True)
