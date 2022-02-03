@@ -24,7 +24,7 @@ PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = 'django-insecure-q)p+7a%s%$($91yzewcqvt9(oqqfv#p_ax4jx4^3!2qrfq)a&l'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     'hadoti.curiositydesk.com',
