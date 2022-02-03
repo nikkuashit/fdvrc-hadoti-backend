@@ -155,7 +155,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 
-MEDIA_URL = '/media/'
+MEDIA_URL = '/api/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
