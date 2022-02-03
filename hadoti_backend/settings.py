@@ -155,8 +155,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 
-MEDIA_URL = '/hadoti_media/'
-MEDIA_ROOT = '/home/rmoktvux3m8e/public_html/hadoti_media'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = '/home/rmoktvux3m8e/public_html/hadoti.curiositydesk.com/hadoti_media'
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 
