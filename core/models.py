@@ -2,6 +2,8 @@ from django.db import models
 import uuid
 from django.db.models.base import Model
 from slugify import slugify
+from django.db import models
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 
@@ -34,7 +36,7 @@ class CorePage(models.Model):
         Menu, on_delete=models.CASCADE, related_name='menu')
     title = models.CharField(max_length=255, unique=True)
     sub_title = models.CharField(max_length=255, blank=True)
-    content = models.TextField(blank=True)
+    content = RichTextField(blank=True, null=False)
 
     def save(self, *args, **kwargs):
         id = uuid.uuid4()
@@ -49,6 +51,7 @@ class CorePage(models.Model):
 
 
 class Section(models.Model):
+    title = models.CharField(max_length=255, unique=True)
     position = models.IntegerField()
     component_type = models.ForeignKey(
         ComponentType, to_field="component_name", on_delete=models.CASCADE, related_name='component_type')
@@ -56,4 +59,4 @@ class Section(models.Model):
         CorePage, to_field="title", on_delete=models.CASCADE, related_name='core_page')
 
     def __str__(self):
-        return (self.core_page.title)
+        return (self.title)

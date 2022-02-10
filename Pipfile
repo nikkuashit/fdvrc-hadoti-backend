@@ -12,6 +12,7 @@ drf-yasg = "*"
 pillow = "*"
 python-slugify = "*"
 django-cors-headers = "*"
+django-ckeditor = "*"
 
 [dev-packages]
 

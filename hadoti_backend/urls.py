@@ -40,9 +40,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('swagger/', schema_view.with_ui('swagger',
                                          cache_timeout=0), name='schema-swagger-ui'),
-    path('admin/', include('administrator.urls')),
+    path('administrator/', include('administrator.urls')),
     path('core/', include('core.urls')),
-
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,
