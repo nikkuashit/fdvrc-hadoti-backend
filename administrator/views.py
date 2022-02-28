@@ -1,9 +1,4 @@
 from rest_framework import viewsets
-from rest_framework.decorators import api_view
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework.parsers import JSONParser
-from rest_framework.renderers import JSONRenderer
 import json
 import requests
 from django.http import Http404, HttpResponseBadRequest
@@ -20,6 +15,7 @@ from .serializers import (
 
 class CompanyProfileView(viewsets.ReadOnlyModelViewSet):
     permission_classes = []
+
     queryset = CompanyProfile.objects.all()
     # lookup_field = 'slug'
     serializer_class = CompanyProfileReadOnlySerializer
@@ -56,7 +52,6 @@ class CompanyProfileAdminView(viewsets.ModelViewSet):
 class SocialLinkView(viewsets.ReadOnlyModelViewSet):
     permission_classes = []
     queryset = SocialLink.objects.all()
-    # lookup_field = 'slug'
     serializer_class = SocialLinkReadOnlySerializer
     serializer_action_classes = {
         'create': SocialLinkCreateSerializer,
@@ -73,7 +68,6 @@ class SocialLinkView(viewsets.ReadOnlyModelViewSet):
 
 class SocialLinkAdminView(viewsets.ModelViewSet):
     queryset = SocialLink.objects.all()
-    # lookup_field = 'slug'
     serializer_class = SocialLinkReadOnlySerializer
     serializer_action_classes = {
         'create': SocialLinkCreateSerializer,

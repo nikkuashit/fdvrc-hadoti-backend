@@ -1,18 +1,41 @@
+# from hadoti_backend.component.serializers import KnowAboutUsReadOnlySerializer, MediaFileReadOnlySerializer, ProductReadOnlySerializer
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import (Menu, CorePage, Section)
 from django.core import serializers as serial
 import json
+
+from component.serializers import (
+    CardMenuReadOnlySerializer,
+    CardMenuCreateSerializer,
+    ProductReadOnlySerializer,
+    ProductCreateSerializer,
+    KnowAboutUsReadOnlySerializer,
+    KnowAboutUsCreateSerializer,
+    LatestNewsReadOnlySerializer,
+    LatestNewsCreateSerializer,
+    FAQReadOnlySerializer,
+    FAQCreateSerializer,
+    GlanceReadOnlySerializer,
+    GlancereateSerializer,
+    AnnouncementReadOnlySerializer,
+    AnnouncementCreateSerializer,
+    MediaFileReadOnlySerializer,
+    MediaFileCreateSerializer,
+    ComponentDataReadOnlySerializer
+)
 # Menu serializer
 
 # CorePage  serializer
 
 
 class SectionReadOnlySerializer(serializers.ModelSerializer):
+    component_data = ComponentDataReadOnlySerializer(many=True, read_only=True)
 
     class Meta:
         model = Section
-        fields = ('position', 'component_type', 'core_page')
+        fields = ('position', 'component_type', 'title', 'content',
+                  'core_page', 'id', 'component_data')
 
 
 class SectionCreateSerializer(serializers.ModelSerializer):
@@ -32,7 +55,7 @@ class CorePageReadOnlySerializer(serializers.ModelSerializer):
     class Meta:
         model = CorePage
         fields = ('slug', 'menu_id', 'title',
-                  'sub_title', 'content', 'core_page')
+                  'sub_title', 'content', 'core_page', 'id')
 
 
 class CorePageCreateSerializer(serializers.ModelSerializer):
@@ -50,12 +73,12 @@ class MenuReadOnlySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Menu
-        fields = ('slug', 'title', 'link', 'menu', 'page')
+        fields = ('slug', 'title', 'link', 'menu', 'page', 'on_footer', 'id')
 
     def get_core_page(self, obj):
         core_page = CorePage.objects.filter(menu_id=obj.id)
         data = json.loads(serial.serialize('json', core_page, fields=(
-            'slug', 'title', 'sub_title', 'content',)))
+            'slug', 'title', 'sub_title', 'content', 'id')))
         return data
 
 
