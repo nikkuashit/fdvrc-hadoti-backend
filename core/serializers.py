@@ -34,7 +34,7 @@ class SectionReadOnlySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Section
-        fields = ('position', 'component_type',
+        fields = ('position', 'component_type', 'title', 'content',
                   'core_page', 'id', 'component_data')
 
 
@@ -73,12 +73,12 @@ class MenuReadOnlySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Menu
-        fields = ('slug', 'title', 'link', 'menu', 'page')
+        fields = ('slug', 'title', 'link', 'menu', 'page', 'on_footer', 'id')
 
     def get_core_page(self, obj):
         core_page = CorePage.objects.filter(menu_id=obj.id)
         data = json.loads(serial.serialize('json', core_page, fields=(
-            'slug', 'title', 'sub_title', 'content',)))
+            'slug', 'title', 'sub_title', 'content', 'id')))
         return data
 
 

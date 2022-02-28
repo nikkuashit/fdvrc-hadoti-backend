@@ -53,6 +53,7 @@ class CorePage(models.Model):
 class Section(models.Model):
     title = models.CharField(max_length=255, unique=True)
     position = models.IntegerField()
+    content = RichTextField(blank=True, null=False)
     component_type = models.ForeignKey(
         ComponentType, to_field="component_name", on_delete=models.CASCADE, related_name='component_type')
     core_page = models.ForeignKey(
