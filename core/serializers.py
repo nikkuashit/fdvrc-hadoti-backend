@@ -35,7 +35,7 @@ class SectionReadOnlySerializer(serializers.ModelSerializer):
     class Meta:
         model = Section
         fields = ('position', 'component_type', 'title', 'content',
-                  'core_page', 'id', 'component_data')
+                  'core_page', 'id', 'component_data', 'media_file')
 
 
 class SectionCreateSerializer(serializers.ModelSerializer):
