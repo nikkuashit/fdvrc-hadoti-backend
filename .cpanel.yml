@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/rmoktvux3m8e/public_html/singdevfpc.in/singdevfpc_backend/
+    - export DEPLOYPATH=/home/rmoktvux3m8e/public_html/satpurafpc.in/satpurafpc_backend/
     - /bin/cp -R * $DEPLOYPATH
