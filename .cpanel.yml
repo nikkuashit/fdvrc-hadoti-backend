@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/rmoktvux3m8e/public_html/badayunifpc.in/badayunifpc_backed/
+    - export DEPLOYPATH=/home/rmoktvux3m8e/public_html/baigachakfpc.in/baigachakfpc_backend/
     - /bin/cp -R * $DEPLOYPATH
