@@ -154,10 +154,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/home/rmoktvux3m8e/public_html/hadotifpc.in/static'
+STATIC_ROOT = '/home/rmoktvux3m8e/public_html/swarnupajfpc.in/static'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/home/rmoktvux3m8e/public_html/hadotifpc.in/media'
+MEDIA_ROOT = '/home/rmoktvux3m8e/public_html/swarnupajfpc.in/media'
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 
