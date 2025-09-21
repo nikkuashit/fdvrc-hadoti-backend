@@ -13,8 +13,10 @@ pillow = "*"
 python-slugify = "*"
 django-cors-headers = "*"
 django-ckeditor = "*"
+requests = "*"
+dj-rest-auth = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.9"
+python_version = "3.11"
