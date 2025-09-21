@@ -2,4 +2,4 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/rmoktvux3m8e/public_html/singdevfpc.in/singdevfpc_backend/
-    - /bin/cp -R /home/rmoktvux3m8e/repositories/fdvrc-singdev/* $DEPLOYPATH
+    - /bin/cp -R images $DEPLOYPATH
