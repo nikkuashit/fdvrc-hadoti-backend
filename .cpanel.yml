@@ -8,9 +8,9 @@ deployment:
     - /bin/cp -R component $DEPLOYPATH
     - /bin/cp -R core $DEPLOYPATH
     - /bin/cp -R hadoti_backend $DEPLOYPATH
-    - /bin/cp -R static $DEPLOYPATH || true
-    - /bin/cp -R media $DEPLOYPATH || true
     - /bin/cp Pipfile $DEPLOYPATH
     - /bin/cp Pipfile.lock $DEPLOYPATH
     - /bin/cp manage.py $DEPLOYPATH
-    - /bin/cp db.sqlite3 $DEPLOYPATH || true
+    - "[ -d static ] && /bin/cp -R static $DEPLOYPATH"
+    - "[ -d media ] && /bin/cp -R media $DEPLOYPATH"
+    - "[ -f db.sqlite3 ] && /bin/cp db.sqlite3 $DEPLOYPATH"
