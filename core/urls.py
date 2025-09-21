@@ -1,16 +1,15 @@
 from django.urls import path, include
 from rest_framework import routers
-from django.conf.urls import url, include
 from .views import (MenuView, MenuAdminView,
                     CorePageView, CorePagedminView, SectionView, SectionAdminView)
 router = routers.DefaultRouter()
 # router.register('projects', ProjectView)
 router.register('menu', MenuView)
-router.register('menu-admin', MenuAdminView)
+router.register('menu-admin', MenuAdminView, basename='menu-admin')
 router.register('core-page', CorePageView)
-router.register('core-page-admin', CorePagedminView)
+router.register('core-page-admin', CorePagedminView, basename='corepage-admin')
 router.register('section', SectionView)
-router.register('section-admin', SectionAdminView)
+router.register('section-admin', SectionAdminView, basename='section-admin')
 
 urlpatterns = [
     path('', include(router.urls)),
