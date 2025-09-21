@@ -2,15 +2,4 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/rmoktvux3m8e/public_html/singdevfpc.in/singdevfpc_backend/
-    - /bin/mkdir -p $DEPLOYPATH
-    - /bin/cp -R accounts $DEPLOYPATH
-    - /bin/cp -R administrator $DEPLOYPATH
-    - /bin/cp -R component $DEPLOYPATH
-    - /bin/cp -R core $DEPLOYPATH
-    - /bin/cp -R hadoti_backend $DEPLOYPATH
-    - /bin/cp Pipfile $DEPLOYPATH
-    - /bin/cp Pipfile.lock $DEPLOYPATH
-    - /bin/cp manage.py $DEPLOYPATH
-    - "[ -d static ] && /bin/cp -R static $DEPLOYPATH"
-    - "[ -d media ] && /bin/cp -R media $DEPLOYPATH"
-    - "[ -f db.sqlite3 ] && /bin/cp db.sqlite3 $DEPLOYPATH"
+    - /bin/cp -R * $DEPLOYPATH
