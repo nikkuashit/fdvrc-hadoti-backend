@@ -19,9 +19,9 @@ jobs:
       - name: 📂 Deploy files via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: ${{ secrets.CPANEL_FTP_SERVER }}
-          username: ${{ secrets.CPANEL_FTP_USERNAME }}
-          password: ${{ secrets.CPANEL_FTP_PASSWORD }}
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_PROD_USERNAME }}
+          password: ${{ secrets.FTP_PROD_PASSWORD }}
           server-dir: /public_html/singdevfpc.in/singdevfpc_backend/
           exclude: |
             **/.git*
@@ -41,12 +41,10 @@ jobs:
       - name: 🔧 Run post-deployment commands via SSH
         uses: appleboy/ssh-action@v1.0.0
         with:
-          host: ${{ secrets.CPANEL_SSH_HOST }}
-          username: ${{ secrets.CPANEL_SSH_USERNAME }}
-          password: ${{ secrets.CPANEL_SSH_PASSWORD }}
-          # Alternative: use SSH key instead of password
-          # key: ${{ secrets.CPANEL_SSH_KEY }}
-          port: ${{ secrets.CPANEL_SSH_PORT || 22 }}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.FTP_PROD_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
           script: |
             cd /home/rmoktvux3m8e/public_html/singdevfpc.in/singdevfpc_backend/
 

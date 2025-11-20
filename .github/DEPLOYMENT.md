@@ -27,9 +27,9 @@ Add the following secrets:
 
 | Secret Name | Description | Example |
 |------------|-------------|---------|
-| `CPANEL_FTP_SERVER` | cPanel FTP server address | `ftp.yourdomain.com` or `your-server-ip` |
-| `CPANEL_FTP_USERNAME` | cPanel FTP username | `your_cpanel_username` |
-| `CPANEL_FTP_PASSWORD` | cPanel FTP password | `your_password` |
+| `FTP_SERVER` | cPanel FTP server address | `ftp.yourdomain.com` or `your-server-ip` |
+| `FTP_PROD_USERNAME` | cPanel FTP username | `rmoktvux3m8e` |
+| `FTP_PROD_PASSWORD` | cPanel FTP password | `your_password` |
 
 #### For SSH Deployment (`cpanel-deploy-with-ssh.yml`):
 
@@ -37,14 +37,10 @@ Add all the above, PLUS:
 
 | Secret Name | Description | Example |
 |------------|-------------|---------|
-| `CPANEL_SSH_HOST` | cPanel SSH server address | `yourdomain.com` or `server-ip` |
-| `CPANEL_SSH_USERNAME` | SSH username (usually same as cPanel username) | `your_cpanel_username` |
-| `CPANEL_SSH_PASSWORD` | SSH password | `your_password` |
-| `CPANEL_SSH_PORT` | SSH port (optional, defaults to 22) | `22` |
+| `SSH_HOST` | cPanel SSH server address | `yourdomain.com` or `server-ip` |
+| `SSH_KEY` | Private SSH key content | Run: `cat ~/.ssh/github_actions` |
 
-**Alternative SSH Authentication** (More secure):
-Instead of `CPANEL_SSH_PASSWORD`, you can use:
-- `CPANEL_SSH_KEY`: Your private SSH key content
+**Note:** Username for SSH is the same as `FTP_PROD_USERNAME`
 
 ### Step 2: Enable SSH Access in cPanel
 
