@@ -23,6 +23,7 @@ class ComponentDataReadOnlySerializer(serializers.ModelSerializer):
 class ComponentDataCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ComponentData
+        fields = ['title', 'media', 'subtitle', 'description', 'position', 'on_landing', 'url', 'section_id', 'is_active', 'value']
 
     def create(self, validated_data):
         component_data = ComponentData(**validated_data)
@@ -42,6 +43,7 @@ class CardMenuReadOnlySerializer(serializers.ModelSerializer):
 class CardMenuCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = CardMenu
+        fields = ['title', 'media', 'subtitle', 'description', 'position', 'on_landing', 'url', 'section_id']
 
     def create(self, validated_data):
         card_menu = CardMenu(**validated_data)
@@ -61,6 +63,7 @@ class ProductReadOnlySerializer(serializers.ModelSerializer):
 class ProductCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
+        fields = ['title', 'media', 'subtitle', 'description', 'position', 'on_landing', 'url', 'section_id']
 
     def create(self, validated_data):
         product = Product(**validated_data)
@@ -80,6 +83,7 @@ class KnowAboutUsReadOnlySerializer(serializers.ModelSerializer):
 class KnowAboutUsCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = KnowAboutUs
+        fields = ['title', 'media', 'subtitle', 'description', 'position', 'on_landing', 'url', 'section_id']
 
     def create(self, validated_data):
         know_abou_us = KnowAboutUs(**validated_data)
@@ -99,6 +103,7 @@ class LatestNewsReadOnlySerializer(serializers.ModelSerializer):
 class LatestNewsCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = LatestNews
+        fields = ['title', 'media', 'subtitle', 'description', 'position', 'on_landing', 'url', 'section_id', 'is_active']
 
     def create(self, validated_data):
         latest_news = LatestNews(**validated_data)
@@ -111,13 +116,13 @@ class FAQReadOnlySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FAQ
-        fields = ('slug', 'menu_id', 'title',
-                  'sub_title', 'content', 'core_page')
+        fields = '__all__'
 
 
 class FAQCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = FAQ
+        fields = ['title', 'media', 'subtitle', 'description', 'position', 'on_landing', 'url', 'section_id']
 
     def create(self, validated_data):
         faq = FAQ(**validated_data)
@@ -133,9 +138,10 @@ class GlanceReadOnlySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class GlancereateSerializer(serializers.ModelSerializer):
+class GlanceCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Glance
+        fields = ['title', 'value', 'section_id']
 
     def create(self, validated_data):
         glance = Glance(**validated_data)
@@ -155,6 +161,7 @@ class AnnouncementReadOnlySerializer(serializers.ModelSerializer):
 class AnnouncementCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Announcement
+        fields = ['title', 'media', 'subtitle', 'description', 'position', 'on_landing', 'url', 'section_id']
 
     def create(self, validated_data):
         announcement = Announcement(**validated_data)
@@ -174,6 +181,7 @@ class MediaFileReadOnlySerializer(serializers.ModelSerializer):
 class MediaFileCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = MediaFile
+        fields = ['title', 'media', 'subtitle', 'description', 'position', 'on_landing', 'url', 'section_id']
 
     def create(self, validated_data):
         media_file = MediaFile(**validated_data)

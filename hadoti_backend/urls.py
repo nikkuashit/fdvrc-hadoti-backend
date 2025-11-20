@@ -25,12 +25,12 @@ from django.conf import settings
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Snippets API",
+        title="FDVRC Hadoti Backend API",
         default_version='v1',
-        description="Test description",
-        terms_of_service="https://www.google.com/policies/terms/",
-        contact=openapi.Contact(email="contact@snippets.local"),
-        license=openapi.License(name="BSD License"),
+        description="REST API for Singdev Mahila Kisan Utpadak Producer Company Limited - A comprehensive API for managing company profile, content pages, sections, and component data.",
+        terms_of_service="https://singdevfpc.in/terms/",
+        contact=openapi.Contact(email="customercare@singdevfpc.in"),
+        license=openapi.License(name="Proprietary"),
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),
@@ -43,6 +43,8 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('administrator/', include('administrator.urls')),
     path('core/', include('core.urls')),
+    path('component/', include('component.urls')),
+    path('marketplace/', include('marketplace.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,

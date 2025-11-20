@@ -11,113 +11,57 @@ from django.http import JsonResponse
 from django.core import serializers
 from rest_framework import status
 from django.contrib.auth.models import User
-from .models import (Menu, CorePage, Section)
+from hadoti_backend.permissions import IsAdminOrStaffOrReadOnly, IsAdminOrStaffOnly
+from .models import (Menu, CorePage, Section, ComponentType)
 from .serializers import (
-    MenuReadOnlySerializer, MenuCreateSerializer, CorePageReadOnlySerializer, CorePageCreateSerializer, SectionReadOnlySerializer, SectionCreateSerializer)
+    MenuReadOnlySerializer, MenuCreateSerializer, CorePageReadOnlySerializer, CorePageCreateSerializer, SectionReadOnlySerializer, SectionCreateSerializer, ComponentTypeSerializer)
 from django_filters.rest_framework import DjangoFilterBackend
 
 
 # Company Profile View
 
 
-class MenuView(viewsets.ReadOnlyModelViewSet):
-    permission_classes = []
+class MenuView(viewsets.ModelViewSet):
+    permission_classes = [IsAdminOrStaffOrReadOnly]
     queryset = Menu.objects.all()
-    # lookup_field = 'slug'
     filter_backends = (DjangoFilterBackend,)
     filter_fields = ('on_footer',)
 
-    serializer_class = MenuReadOnlySerializer
-    serializer_action_classes = {
-        'create': MenuCreateSerializer,
-        'list': MenuReadOnlySerializer,
-        'retrieve': MenuCreateSerializer
-    }
+    def get_serializer_class(self):
+        if self.action in ['create', 'update', 'partial_update']:
+            return MenuCreateSerializer
+        return MenuReadOnlySerializer
 
-    class Meta:
-        model = Menu
-        fields = '__all__'
+# Core Page View
 
-# Company Profile View for admin
-
-
-class MenuAdminView(viewsets.ModelViewSet):
-    queryset = Menu.objects.all()
-    # lookup_field = 'slug'
-    serializer_class = MenuReadOnlySerializer
-    serializer_action_classes = {
-        'create': MenuCreateSerializer,
-        'list': MenuReadOnlySerializer,
-        'retrieve': MenuCreateSerializer
-    }
-
-    class Meta:
-        model = Menu
-        fields = '__all__'
-
-
-# Social Link View
-
-class CorePageView(viewsets.ReadOnlyModelViewSet):
-    permission_classes = []
+class CorePageView(viewsets.ModelViewSet):
+    permission_classes = [IsAdminOrStaffOrReadOnly]
     queryset = CorePage.objects.all()
-    # lookup_field = 'slug'
-    serializer_class = CorePageReadOnlySerializer
-    serializer_action_classes = {
-        'create': CorePageCreateSerializer,
-        'list': CorePageReadOnlySerializer,
-        'retrieve': CorePageCreateSerializer
-    }
 
-    class Meta:
-        model = CorePage
-        fields = '__all__'
+    def get_serializer_class(self):
+        if self.action in ['create', 'update', 'partial_update']:
+            return CorePageCreateSerializer
+        return CorePageReadOnlySerializer
 
 
-class CorePagedminView(viewsets.ModelViewSet):
-    queryset = CorePage.objects.all()
-    # lookup_field = 'slug'
-    serializer_class = CorePageReadOnlySerializer
-    serializer_action_classes = {
-        'create': CorePageCreateSerializer,
-        'list': CorePageReadOnlySerializer,
-        'retrieve': CorePageCreateSerializer
-    }
-
-    class Meta:
-        model = CorePage
-        fields = '__all__'
+# Section View
 
 
-# Section page
-
-
-class SectionView(viewsets.ReadOnlyModelViewSet):
-    permission_classes = []
+class SectionView(viewsets.ModelViewSet):
+    permission_classes = [IsAdminOrStaffOrReadOnly]
     queryset = Section.objects.all()
-    # lookup_field = 'slug'
-    serializer_class = SectionReadOnlySerializer
-    serializer_action_classes = {
-        'create': SectionCreateSerializer,
-        'list': SectionReadOnlySerializer,
-        'retrieve': SectionCreateSerializer
-    }
 
-    class Meta:
-        model = Section
-        fields = '__all__'
+    def get_serializer_class(self):
+        if self.action in ['create', 'update', 'partial_update']:
+            return SectionCreateSerializer
+        return SectionReadOnlySerializer
 
 
-class SectionAdminView(viewsets.ModelViewSet):
-    queryset = Section.objects.all()
-    # lookup_field = 'slug'
-    serializer_class = SectionReadOnlySerializer
-    serializer_action_classes = {
-        'create': SectionCreateSerializer,
-        'list': SectionReadOnlySerializer,
-        'retrieve': SectionCreateSerializer
-    }
+# ComponentType View
 
-    class Meta:
-        model = Section
-        fields = '__all__'
+class ComponentTypeView(viewsets.ModelViewSet):
+    permission_classes = [IsAdminOrStaffOrReadOnly]
+    queryset = ComponentType.objects.all()
+    serializer_class = ComponentTypeSerializer
+
+
