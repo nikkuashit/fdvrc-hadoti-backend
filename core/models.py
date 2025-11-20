@@ -22,8 +22,9 @@ class Menu(models.Model):
     on_footer = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
-        id = uuid.uuid4()
-        self.slug = slugify(str(id))
+        if not self.slug:
+            id = uuid.uuid4()
+            self.slug = slugify(str(id))
         super(Menu, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -39,8 +40,9 @@ class CorePage(models.Model):
     content = RichTextField(blank=True, null=False)
 
     def save(self, *args, **kwargs):
-        id = uuid.uuid4()
-        self.slug = slugify(str(id))
+        if not self.slug:
+            id = uuid.uuid4()
+            self.slug = slugify(str(id))
         super(CorePage, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -53,12 +55,12 @@ class CorePage(models.Model):
 class Section(models.Model):
     title = models.CharField(max_length=255, unique=True)
     position = models.IntegerField()
-    media_file = models.FileField(blank=True)
+    media_file = models.FileField(blank=True, null=True)
     content = RichTextField(blank=True, null=False)
     component_type = models.ForeignKey(
-        ComponentType, to_field="component_name", on_delete=models.CASCADE, related_name='component_type')
+        ComponentType, on_delete=models.CASCADE, related_name='sections')
     core_page = models.ForeignKey(
-        CorePage, to_field="title", on_delete=models.CASCADE, related_name='core_page')
+        CorePage, on_delete=models.CASCADE, related_name='sections')
 
     def __str__(self):
         return (self.title)

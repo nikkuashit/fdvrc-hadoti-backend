@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'administrator',
     'core',
     'component',
+    'marketplace',
 ]
 
 SITE_ID = 1
@@ -162,7 +163,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = '/home/rmoktvux3m8e/public_html/singdevfpc.in/static'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/home/rmoktvux3m8e/public_html/singdevfpc.in/media'
+MEDIA_ROOT = 'media'
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 

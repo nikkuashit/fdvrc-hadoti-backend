@@ -14,6 +14,7 @@ class CompanyProfileReadOnlySerializer(serializers.ModelSerializer):
 class CompanyProfileCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = CompanyProfile
+        fields = ['title', 'icon', 'sub_title', 'sub_image', 'description', 'address', 'country_code', 'contact_number', 'email', 'footer_icon', 'footer_sub_image']
 
     def create(self, validated_data):
         company_profile = CompanyProfile(**validated_data)
@@ -32,6 +33,7 @@ class SocialLinkReadOnlySerializer(serializers.ModelSerializer):
 class SocialLinkCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = SocialLink
+        fields = ['title', 'icon', 'icon_link', 'url', 'company']
 
     def create(self, validated_data):
         social_link = SocialLink(**validated_data)

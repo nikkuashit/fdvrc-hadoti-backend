@@ -6,6 +6,7 @@ from django.http import JsonResponse
 from django.core import serializers
 from rest_framework import status
 from django.contrib.auth.models import User
+from hadoti_backend.permissions import IsAdminOrStaffOrReadOnly
 from .models import (CompanyProfile, SocialLink)
 from .serializers import (
     CompanyProfileReadOnlySerializer, CompanyProfileCreateSerializer, SocialLinkReadOnlySerializer, SocialLinkCreateSerializer)
@@ -13,68 +14,24 @@ from .serializers import (
 # Company Profile View
 
 
-class CompanyProfileView(viewsets.ReadOnlyModelViewSet):
-    permission_classes = []
-
+class CompanyProfileView(viewsets.ModelViewSet):
+    permission_classes = [IsAdminOrStaffOrReadOnly]
     queryset = CompanyProfile.objects.all()
-    # lookup_field = 'slug'
-    serializer_class = CompanyProfileReadOnlySerializer
-    serializer_action_classes = {
-        'create': CompanyProfileCreateSerializer,
-        'list': CompanyProfileReadOnlySerializer,
-        'retrieve': CompanyProfileCreateSerializer
-    }
 
-    class Meta:
-        model = CompanyProfile
-        fields = '__all__'
-
-# Company Profile View for admin
-
-
-class CompanyProfileAdminView(viewsets.ModelViewSet):
-    queryset = CompanyProfile.objects.all()
-    # lookup_field = 'slug'
-    serializer_class = CompanyProfileReadOnlySerializer
-    serializer_action_classes = {
-        'create': CompanyProfileCreateSerializer,
-        'list': CompanyProfileReadOnlySerializer,
-        'retrieve': CompanyProfileCreateSerializer
-    }
-
-    class Meta:
-        model = CompanyProfile
-        fields = '__all__'
-
+    def get_serializer_class(self):
+        if self.action in ['create', 'update', 'partial_update']:
+            return CompanyProfileCreateSerializer
+        return CompanyProfileReadOnlySerializer
 
 # Social Link View
 
-class SocialLinkView(viewsets.ReadOnlyModelViewSet):
-    permission_classes = []
+class SocialLinkView(viewsets.ModelViewSet):
+    permission_classes = [IsAdminOrStaffOrReadOnly]
     queryset = SocialLink.objects.all()
-    serializer_class = SocialLinkReadOnlySerializer
-    serializer_action_classes = {
-        'create': SocialLinkCreateSerializer,
-        'list': SocialLinkReadOnlySerializer,
-        'retrieve': SocialLinkCreateSerializer
-    }
 
-    class Meta:
-        model = SocialLink
-        fields = '__all__'
+    def get_serializer_class(self):
+        if self.action in ['create', 'update', 'partial_update']:
+            return SocialLinkCreateSerializer
+        return SocialLinkReadOnlySerializer
 
 
-# Social Admin View
-
-class SocialLinkAdminView(viewsets.ModelViewSet):
-    queryset = SocialLink.objects.all()
-    serializer_class = SocialLinkReadOnlySerializer
-    serializer_action_classes = {
-        'create': SocialLinkCreateSerializer,
-        'list': SocialLinkReadOnlySerializer,
-        'retrieve': SocialLinkCreateSerializer
-    }
-
-    class Meta:
-        model = SocialLink
-        fields = '__all__'
