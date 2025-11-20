@@ -1,0 +1,61 @@
+name: 🚀 Deploy to cPanel
+
+on:
+  push:
+    branches:
+      - main
+      - singhdevfpc
+  workflow_dispatch:  # Allows manual trigger from GitHub Actions tab
+
+jobs:
+  deploy:
+    name: 🎉 Deploy to cPanel via FTP
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+
+      - name: 📋 Create requirements.txt if needed
+        run: |
+          if [ ! -f requirements.txt ]; then
+            echo "No requirements.txt found, workflow will continue"
+          fi
+
+      - name: 📂 Deploy to cPanel
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.CPANEL_FTP_SERVER }}
+          username: ${{ secrets.CPANEL_FTP_USERNAME }}
+          password: ${{ secrets.CPANEL_FTP_PASSWORD }}
+          server-dir: /public_html/singdevfpc.in/singdevfpc_backend/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/.venv/**
+            **/venv/**
+            **/__pycache__/**
+            **/*.pyc
+            **/*.pyo
+            **/db.sqlite3
+            **/.DS_Store
+            **/Thumbs.db
+            **/.claude/**
+            **/test_deployment.txt
+
+      - name: 🔄 Post-deployment notification
+        if: success()
+        run: |
+          echo "✅ Deployment successful to cPanel!"
+          echo "📍 Server directory: /public_html/singdevfpc.in/singdevfpc_backend/"
+          echo "⚠️  Remember to:"
+          echo "   - Install dependencies via cPanel Terminal or SSH"
+          echo "   - Run migrations: python manage.py migrate"
+          echo "   - Collect static files: python manage.py collectstatic"
+          echo "   - Restart the application if needed"
+
+      - name: ❌ Deployment failed
+        if: failure()
+        run: |
+          echo "❌ Deployment failed. Please check the logs above."

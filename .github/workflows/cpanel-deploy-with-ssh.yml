@@ -1,0 +1,90 @@
+name: 🚀 Deploy to cPanel with SSH Commands
+
+on:
+  push:
+    branches:
+      - main
+      - singhdevfpc
+  workflow_dispatch:  # Allows manual trigger
+
+jobs:
+  deploy:
+    name: 🎉 Deploy to cPanel
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+
+      - name: 📂 Deploy files via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.CPANEL_FTP_SERVER }}
+          username: ${{ secrets.CPANEL_FTP_USERNAME }}
+          password: ${{ secrets.CPANEL_FTP_PASSWORD }}
+          server-dir: /public_html/singdevfpc.in/singdevfpc_backend/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/.venv/**
+            **/venv/**
+            **/__pycache__/**
+            **/*.pyc
+            **/*.pyo
+            **/db.sqlite3
+            **/.DS_Store
+            **/Thumbs.db
+            **/.claude/**
+            **/test_deployment.txt
+
+      - name: 🔧 Run post-deployment commands via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.CPANEL_SSH_HOST }}
+          username: ${{ secrets.CPANEL_SSH_USERNAME }}
+          password: ${{ secrets.CPANEL_SSH_PASSWORD }}
+          # Alternative: use SSH key instead of password
+          # key: ${{ secrets.CPANEL_SSH_KEY }}
+          port: ${{ secrets.CPANEL_SSH_PORT || 22 }}
+          script: |
+            cd /home/rmoktvux3m8e/public_html/singdevfpc.in/singdevfpc_backend/
+
+            # Activate virtual environment if it exists
+            if [ -d "venv" ]; then
+              source venv/bin/activate
+            elif [ -d ".venv" ]; then
+              source .venv/bin/activate
+            fi
+
+            # Install/update dependencies
+            echo "📦 Installing dependencies..."
+            pip install -r requirements.txt --quiet
+
+            # Run migrations
+            echo "🔄 Running database migrations..."
+            python manage.py migrate --noinput
+
+            # Collect static files
+            echo "📁 Collecting static files..."
+            python manage.py collectstatic --noinput
+
+            # Restart application (if using Passenger)
+            if [ -f "tmp/restart.txt" ]; then
+              touch tmp/restart.txt
+            else
+              mkdir -p tmp && touch tmp/restart.txt
+            fi
+
+            echo "✅ Post-deployment tasks completed!"
+
+      - name: ✅ Deployment successful
+        if: success()
+        run: |
+          echo "✅ Deployment and post-deployment tasks completed successfully!"
+          echo "🌐 Your application should now be live"
+
+      - name: ❌ Deployment failed
+        if: failure()
+        run: |
+          echo "❌ Deployment failed. Please check the logs above."
